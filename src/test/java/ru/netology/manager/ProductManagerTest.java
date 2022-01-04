@@ -29,8 +29,8 @@ public class ProductManagerTest {
     private Book book1 = new Book(6, "Mega title", "Book author");
 
     @Test
-    public void shouldFoundProductIfExists() {
-        CreateRepositoryMock();
+    public void shouldFoundBooksIfExists() {
+        createRepositoryMock();
 
         Product[] expected = new Product[2];
         expected[0] = book;
@@ -38,6 +38,11 @@ public class ProductManagerTest {
 
         Product[] actual = productManager.searchBy("Book");
         assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldFoundSmartphonesIfExists() {
+        createRepositoryMock();
 
         Product[] expectedSmartphone = new Product[2];
         expectedSmartphone[0] = smartphone;
@@ -45,12 +50,22 @@ public class ProductManagerTest {
 
         Product[] actualSmartphones = productManager.searchBy("Smartphone");
         assertArrayEquals(expectedSmartphone, actualSmartphones);
+    }
+
+    @Test
+    public void shouldFoundSmartphoneByManufactureIfExists() {
+        createRepositoryMock();
 
         Product[] expectedSmartphoneWithManufacture = new Product[1];
         expectedSmartphoneWithManufacture[0] = smartphone1;
 
         Product[] actualSmartphoneWithManufacture = productManager.searchBy("super");
         assertArrayEquals(expectedSmartphoneWithManufacture, actualSmartphoneWithManufacture);
+    }
+
+    @Test
+    public void shouldFoundBookByNameIfExists() {
+        createRepositoryMock();
 
         Product[] expectedBookWithAuthor = new Product[1];
         expectedBookWithAuthor[0] = book1;
@@ -59,7 +74,7 @@ public class ProductManagerTest {
         assertArrayEquals(expectedBookWithAuthor, actualBookWithAuthor);
     }
 
-    private void CreateRepositoryMock() {
+    private void createRepositoryMock() {
         Product[] products = new Product[4];
         products[0] = book;
         products[1] = book1;
@@ -71,7 +86,7 @@ public class ProductManagerTest {
 
     @Test
     public void shouldNotFoundProductIfNotExists() {
-        CreateRepositoryMock();
+        createRepositoryMock();
 
         Product[] actualNotFound = productManager.searchBy("44");
         assertEquals(0, actualNotFound.length);
